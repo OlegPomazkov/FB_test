@@ -2,13 +2,19 @@ var ReactDOM = require('react-dom');
 var React = require('react');
 var redux = require("redux");
 var Provider = require("react-redux").Provider;
+var configureStore = require("./store/configureStore");
 var Table = require('./components/Table.js');
 
 // ------------------------- Рендеринг компонента        --------------------------------  
-// ReactDOM.render(
-//     <Table/>,
-//     document.getElementById("app")
-// );
+   
+const store = configureStore();
+
+      ReactDOM.render(
+      	<Provider store={store}>
+          <Table/>
+        </Provider>,
+        document.getElementById("app")
+        );
 
 // -------------------------- Получение данных           ---------------------------------
 var xhr = new XMLHttpRequest();
@@ -24,10 +30,12 @@ xhr.onreadystatechange = function() {
     var myData = JSON.parse(xhr.responseText);
 
     if( myData.content ) {
-      ReactDOM.render(
-        <Table content={myData.content}/>,
-        document.getElementById("app")
-      );
+      // ReactDOM.render(
+      // 	<Provider store={store}>
+      //     <Table content={myData.content}/>
+      //   </Provider>,
+      //     document.getElementById("app")
+      //   );
     }
   }
 };

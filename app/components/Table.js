@@ -1,9 +1,13 @@
 var React = require('react');
 var Header = require('./Header.js');
 var Row = require('./Row.js');
+var connect = require("react-redux").connect;
  
 class Table extends React.Component {
   render() {
+
+    console.log('----------> ', this.props);
+
     return(
       <table border="1">  
         <Header/>
@@ -15,5 +19,11 @@ class Table extends React.Component {
     );
   }
 }
- 
-module.exports = Table;
+
+function mapStateToProps (state) {
+  return {
+    content: state.content
+  }
+} 
+
+module.exports = connect(mapStateToProps)(Table);
