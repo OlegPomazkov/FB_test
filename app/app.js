@@ -9,12 +9,12 @@ var Table = require('./components/Table.js');
    
 const store = configureStore();
 
-      ReactDOM.render(
-      	<Provider store={store}>
-          <Table/>
-        </Provider>,
-        document.getElementById("app")
-        );
+ReactDOM.render(
+  <Provider store={store}>
+    <Table />
+  </Provider>,
+  document.getElementById("app")
+);
 
 // -------------------------- Получение данных           ---------------------------------
 var xhr = new XMLHttpRequest();

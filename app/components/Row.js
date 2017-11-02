@@ -1,4 +1,5 @@
 var React = require('react');
+var getFileData = require("../api/api.js");
 
 class Row extends React.Component {
   constructor(props){

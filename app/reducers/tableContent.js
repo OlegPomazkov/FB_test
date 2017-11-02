@@ -16,6 +16,7 @@ export default function tableContent(state = initialState, action) {
       return state;
     default:
       return state;
+      
   }
 }
 
