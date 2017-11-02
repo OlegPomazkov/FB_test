@@ -4,7 +4,7 @@ var Row = require('./Row.js');
 var connect = require("react-redux").connect;
 var bindActionCreators = require("redux").bindActionCreators;
 var setContent = require("../actions/ContentAction.js");
-
+var getFileData = require("../api/api.js");
  
 class Table extends React.Component {
 
@@ -12,12 +12,27 @@ class Table extends React.Component {
     super(props);
   }
 
+  onClick() {
+  	// var data =  [
+   //      { "name": "ANOTHER", 
+   //        "data": [
+   //          { "f1": "true"},
+   //          { "f2": 1},
+   //          { "f3": 1}
+   //        ]
+   //      }
+   //    ];
+
+
+    getFileData(this.props.setContent);  
+  }
+
   render() {
     var contentArray = this.props.content;
     console.log(contentArray) ;
 
     return(
-      <table border="1" onClick={this.props.setContent}>  
+      <table border="1" onClick={this.onClick.bind(this)}>  
         <Header/>
        	  {
        	  	contentArray.map(function(item, index){
@@ -39,7 +54,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setContent: () => dispatch(setContent)
+    setContent: (data) => dispatch(setContent(data))
   }
 }
 

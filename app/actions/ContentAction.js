@@ -1,14 +1,8 @@
-var setContent = {
-    type: 'SET_CONTENT',
-    payload: [
-        { "name": "ANOTHER", 
-          "data": [
-            { "f1": "true"},
-            { "f2": 1},
-            { "f3": 1}
-          ]
-        }
-      ] 
-  };
+var setContent = function(data){
+  return {
+  	type: 'SET_CONTENT',
+    payload: data
+  };  
+};
 
 module.exports = setContent;

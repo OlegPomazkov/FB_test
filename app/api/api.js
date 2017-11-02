@@ -10,7 +10,7 @@ function getJSON(callback) {
 }
 
 function getFileData(callback) {
-  getJSON(data => callback(JSON.parse(data)));
+  getJSON(data => callback(JSON.parse(data).content));
 }
 
 module.exports = getFileData;
