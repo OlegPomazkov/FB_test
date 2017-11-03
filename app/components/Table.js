@@ -1,10 +1,12 @@
 var React = require('react');
+var ColChooseDialog = require('./ColChooseDialog.js');
 var Header = require('./Header.js');
 var Row = require('./Row.js');
 var connect = require("react-redux").connect;
 var bindActionCreators = require("redux").bindActionCreators;
-var setContent = require("../actions/ContentAction.js");
 var getFileData = require("../api/api.js");
+
+var setContent = require("../actions/ContentAction.js");
  
 class Table extends React.Component {
 
@@ -12,51 +14,40 @@ class Table extends React.Component {
     super(props);
   }
 
-  onClick() {
-  	// var data =  [
-   //      { "name": "ANOTHER", 
-   //        "data": [
-   //          { "f1": "true"},
-   //          { "f2": 1},
-   //          { "f3": 1}
-   //        ]
-   //      }
-   //    ];
-
-
+  onTableClick() {
     getFileData(this.props.setContent);  
   }
 
   render() {
     var contentArray = this.props.content;
-    console.log(contentArray) ;
-
+   
     return(
-      <table border="1" onClick={this.onClick.bind(this)}>  
-        <Header/>
-       	  {
-       	  	contentArray.map(function(item, index){
-       	  		return <Row 
-       	  		  key={'row_item_' + index} 
-       	  		  rowKey={index} 
-       	  		  rowData={item}/>})
-       	  }
-      </table>
+      <div>
+        <ColChooseDialog />
+        <table border="1" onClick={this.onTableClick.bind(this)}>  
+          <Header/>
+       	    {
+       	  	  contentArray.map(function(item, index){
+       	  	  return <Row 
+       	  	    key={'row_item_' + index} 
+       	  	    rowKey={index} 
+       	  	    rowData={item}/>})
+       	    }
+        </table>
+      </div>
     );
   }
 }
 
 function mapStateToProps (state) {
   return {
-    content: state.content
+    content: state.content,
+    showDialog: state.showDialog
   }
 } 
 
 function mapDispatchToProps(dispatch) {
-  return {
-    setContent: (data) => dispatch(setContent(data))
-  }
+  	return bindActionCreators({ setContent }, dispatch)
 }
-
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Table);

@@ -11,6 +11,8 @@ function configureStore() {                             //initialState) {
   //   })
   // }
 
+  console.log('STORE ------->', store);
+
   return store;
 }
 
