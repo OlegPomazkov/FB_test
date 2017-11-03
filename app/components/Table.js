@@ -20,19 +20,21 @@ class Table extends React.Component {
 
   render() {
     var contentArray = this.props.content;
+    var rowVisibility = this.props.columnsShow.map((item) => item.status);
+
+    var rowsTemplate = contentArray.map(function(item, index){
+      return <Row 
+        key={'row_item_' + index} 
+        rowKey={index} 
+        rowData={item}
+        rowVisibility={rowVisibility}/>})
    
     return(
       <div>
         <ColChooseDialog />
         <table border="1" onClick={this.onTableClick.bind(this)}>  
           <Header/>
-       	    {
-       	  	  contentArray.map(function(item, index){
-       	  	  return <Row 
-       	  	    key={'row_item_' + index} 
-       	  	    rowKey={index} 
-       	  	    rowData={item}/>})
-       	    }
+       	  {rowsTemplate}
         </table>
       </div>
     );
@@ -42,7 +44,8 @@ class Table extends React.Component {
 function mapStateToProps (state) {
   return {
     content: state.content,
-    showDialog: state.showDialog
+    showDialog: state.showDialog,
+    columnsShow: state.columnsShow
   }
 } 
 

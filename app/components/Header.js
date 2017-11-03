@@ -6,7 +6,7 @@ var toggleVisibility = require("../actions/DialogVisibilityAction.js");
 class HeaderReact extends React.Component {
   constructor(props){
     super(props);
-    this.state = { items: [ 'Company', 'Feature 1', 'Feature 2', 'Feature 3']};
+    this.state = { company: 'Company', items: [ 'Feature 1', 'Feature 2', 'Feature 3']};
   }
 
   onHeaderClick(e) {
@@ -15,18 +15,26 @@ class HeaderReact extends React.Component {
   }
 
   render() {
+  	var currentColsStatus = this.props.columnsShow.map((item) => item.status);
+
+  	var columnsTemplate = this.state.items.map(function(item, index)
+          {return (
+          	<th key={'head_item_' + index}
+          	  className={(currentColsStatus[index] === 'true') ? '': 'none'}>
+          	  {item}
+          	</th>);})
     return(
-      <thead onClick={this.onHeaderClick.bind(this)}>  
-        {
-         	this.state.items.map(function(item, index){return <th key={'head_item_' + index}>{item}</th>})
-        }
-      </thead>);
+      <tr onClick={this.onHeaderClick.bind(this)}>  
+        <th>{this.state.company}</th>
+        {columnsTemplate}
+      </tr>);
     }
 }
 
 function mapStateToProps (state) {
   return {
-    showDialog: state.showDialog
+    showDialog: state.showDialog,
+    columnsShow: state.columnsShow
   }
 } 
 
