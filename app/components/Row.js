@@ -12,15 +12,11 @@ class Row extends React.Component {
     var itemValue;
     var rowVis = this.props.rowVisibility;
 
-    console.log('Row visibility  ----> ', rowVis);
-
     dataTemplate = this.props.rowData.data.map(
       function(item, index){
         for(let key in item) {
           itemValue = item[key];
         }
-        
-        console.log(index, '  item  ----> ', item);
 
         return (<td 
             key={'cell_item_' + rowKey +'_' + index}
@@ -29,8 +25,6 @@ class Row extends React.Component {
           </td>);
       });
 
-    console.log('dataTemplate  ----> ', dataTemplate);
-  
     return(
       <tr>  
         <td>{ this.props.rowData.name}</td>

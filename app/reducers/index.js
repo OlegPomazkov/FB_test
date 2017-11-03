@@ -24,15 +24,12 @@ const initialState =  {
 
 function tableContent(state = initialState, action) {
   
-  console.log('-------->',action.type);
-
   switch (action.type) {
     case 'SET_CONTENT':
       return Object.assign({}, state, { content: action.payload });
     case 'TOGGLE_VISIBILITY':  
       return Object.assign({}, state, { showDialog: (action.payload ? 0 : 1)});
     case 'CHANGE_COLS_STATUS':
-      console.log('Catch change col status!')   
       return Object.assign({}, state, { columnsShow: action.payload });;
 
     default:
