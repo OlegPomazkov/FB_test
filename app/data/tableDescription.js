@@ -5,7 +5,8 @@ var tableColumns = [
   "goals-38173__cpa", "goals-38173__cr", "goals-38173__count",  
   "goals-38136__cpa", "goals-38136__cr", "goals-38136__count", "goals-38136__revenue", "goals-38136__gross_profit", "goals-38136__roi", "goals-38136__drr", "goals-38136__roas",
   "goals-38164__cpa", "goals-38164__cr", "goals-38164__count" 
-]
+];
+
 var tableHeaders = {
   "is_active": '', 
   "value": 'Кампании', 
@@ -29,6 +30,6 @@ var tableHeaders = {
   "roi": 'ROI', 
   "drr": 'DRR', 
   "roas": 'ROAS'
-}
+};
 
 module.exports = {tableColumns, tableHeaders};
