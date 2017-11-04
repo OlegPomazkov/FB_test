@@ -1,5 +1,6 @@
 var React = require('react');
 var getFileData = require("../api/api.js");
+var tableColumns = require("../data/tableDescription.js").tableColumns; 
 
 class Row extends React.Component {
   constructor(props){
@@ -8,27 +9,44 @@ class Row extends React.Component {
 
   render() {
     var rowKey = this.props.rowKey;
-    var dataTemplate;
-    var itemValue;
-    var rowVis = this.props.rowVisibility;
+    var rowTemplate = [];
+    var currentTd;
+    var groupId;
+    var cellDataName = [];
+    var goalsNumbers = {};
 
-    dataTemplate = this.props.rowData.data.map(
-      function(item, index){
-        for(let key in item) {
-          itemValue = item[key];
-        }
-
-        return (<td 
-            key={'cell_item_' + rowKey +'_' + index}
-            className={(rowVis[index] === 'true') ? '': 'none'}>
-            {itemValue}
-          </td>);
-      });
+    this.props.goalsList.forEach((item, index) => goalsNumbers[item.goal_id] = index);
+    for(let i = 0; i < tableColumns.length; i++){
+      cellDataName = tableColumns[i].split('__');
+      if(tableColumns[i].split('__')[0].split('-')[0] === 'goals') {
+        groupId = tableColumns[i].split('__')[0].split('-')[1];
+        currentTd = (
+            <td key={'row_item_' + rowKey + '_' + i}>
+              {this.props.rowData.goals[goalsNumbers[groupId]][cellDataName[1]]}
+            </td>
+        );
+      } else {
+        if (cellDataName.length === 1 ) {
+          currentTd = (
+            <td key={'row_item_' + rowKey + '_' + i}>
+              {this.props.rowData[cellDataName[0]]}
+            </td>
+          );
+        } else {
+          currentTd = (
+            <td key={'row_item_' + rowKey + '_' + i}>
+              {this.props.rowData[cellDataName[0]][cellDataName[1]]}
+            </td>
+          );
+        } 
+        
+      }
+      rowTemplate.push(currentTd);
+    }
 
     return(
       <tr>  
-        <td>{ this.props.rowData.name}</td>
-        {dataTemplate}
+        {rowTemplate}
       </tr>);
     }
 }

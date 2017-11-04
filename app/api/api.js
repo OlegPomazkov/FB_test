@@ -1,5 +1,5 @@
 function getJSON(callback) {
-  let  url = './app/data/smallTestData.json';	
+  let  url = './app/data/test-data.json';	
   let xhr = new XMLHttpRequest();
 
   xhr.onload = function () { 
