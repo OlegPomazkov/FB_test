@@ -1,6 +1,5 @@
 var combineReducers = require("redux").combineReducers;
 // var tableContent = require("./tableContent.js");
-
 // module.exports = combineReducers({tableContent});
 
 const initialState =  {
