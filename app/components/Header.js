@@ -17,29 +17,38 @@ class HeaderReact extends React.Component {
     var headerRow1Template = [];
     var headerRow2Template = [];
     var currentTh;
-    var numOfCols;
+    var numOfColsToMove;
+    var numOfColsForColSpan;
     var groupId;
 
     for(let i = 0; i < tableColumns.length; i++){
       if(tableColumns[i].split('__')[0].split('-')[0] === 'goals') {
-        numOfCols = 0;
+        numOfColsToMove = 0;
+        numOfColsForColSpan = 0;
         groupId = tableColumns[i].split('__')[0].split('-')[1];
         for(let j = i; j < tableColumns.length; j++){
           if(tableColumns[j].split('__')[0].split('-')[1] === groupId) {
-            numOfCols += 1;
+            numOfColsToMove += 1;
+            if(this.props.columnsShow[tableColumns[j]]) {
+               numOfColsForColSpan += 1;  
+            }
           } else {
           	break;
           }
         }	
       	currentTh = (
-      	  <th key={'head_item_1_' + i} colSpan={numOfCols}>
+      	  <th key={'head_item_1_' + i} colSpan={numOfColsToMove}>
             {tableHeaders[tableColumns[i].split('__')[0]]}
           </th> 
         );
-        i += (numOfCols - 1);
+        i += (numOfColsToMove - 1);
       } else {
+//        className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}
       	currentTh = (
-      	  <th key={'head_item_1_' + i} rowSpan="2">
+      	  <th 
+            key={'head_item_1_' + i} 
+            rowSpan="2"
+            >
             {tableHeaders[tableColumns[i]]}
           </th>
         );
@@ -48,8 +57,11 @@ class HeaderReact extends React.Component {
     }
     for(let i = 0; i < tableColumns.length; i++){
       if(tableColumns[i].split('__')[0].split('-')[0] === 'goals') {
-      	currentTh = (
-      	  <th key={'head_item_2_' + i}>
+//      	className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}
+        currentTh = (
+      	  <th 
+            key={'head_item_2_' + i}
+            >
             {tableHeaders[tableColumns[i].split('__')[1]]}
           </th>
         );

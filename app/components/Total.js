@@ -2,18 +2,18 @@ var React = require('react');
 var getFileData = require("../api/api.js");
 var tableColumns = require("../data/tableDescription.js").tableColumns; 
 
-class Row extends React.Component {
+class Total extends React.Component {
   constructor(props){
     super(props);
   }
 
   render() {
-    var rowKey = this.props.rowKey;
     var rowTemplate = [];
     var currentTd;
     var groupId;
     var cellDataName = [];
     var goalsNumbers = {};
+    var specialTotalValue;
 
     this.props.goalsList.forEach((item, index) => goalsNumbers[item.goal_id] = index);
     for(let i = 0; i < tableColumns.length; i++){
@@ -22,26 +22,37 @@ class Row extends React.Component {
         groupId = tableColumns[i].split('__')[0].split('-')[1];
         currentTd = (
             <td 
-              key={'row_item_' + rowKey + '_' + i}
+              key={'total_item_'+ i}
               className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
-              {this.props.rowData.goals[goalsNumbers[groupId]][cellDataName[1]]}
+              {this.props.totalData.goals[goalsNumbers[groupId]][cellDataName[1]]}
             </td>
         );
       } else {
         if (cellDataName.length === 1 ) {
+          switch(cellDataName[0]) {
+            case 'is_active':
+              specialTotalValue = false;
+              break;
+            case 'value':
+              specialTotalValue = 'Total';
+              break;
+            case 'state':
+              specialTotalValue = '';
+              break;
+          }
           currentTd = (
             <td 
-              key={'row_item_' + rowKey + '_' + i}
+              key={'total_item_'+ i}
               className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
-              {this.props.rowData[cellDataName[0]]}
+              {specialTotalValue}
             </td>
           );
         } else {
           currentTd = (
             <td 
-              key={'row_item_' + rowKey + '_' + i}
+              key={'total_item_'+ i}
               className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
-              {this.props.rowData[cellDataName[0]][cellDataName[1]]}
+              {this.props.totalData[cellDataName[0]][cellDataName[1]]}
             </td>
           );
         } 
@@ -57,4 +68,4 @@ class Row extends React.Component {
     }
 }
 
-module.exports = Row
+module.exports = Total

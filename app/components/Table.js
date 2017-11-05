@@ -1,12 +1,14 @@
 var React = require('react');
 var ColChooseDialog = require('./ColChooseDialog.js');
 var Header = require('./Header.js');
+var Total = require('./Total.js');
 var Row = require('./Row.js');
 var connect = require("react-redux").connect;
 var bindActionCreators = require("redux").bindActionCreators;
 var getFileData = require("../api/api.js");
 
 var setContent = require("../actions/ContentAction.js");
+var setTotal = require("../actions/TotalAction.js");
  
 class Table extends React.Component {
 
@@ -15,18 +17,20 @@ class Table extends React.Component {
   }
 
   onTableClick() {
-    getFileData(this.props.setContent);  
+    getFileData(this.props.setContent, this.props.setTotal);
   }
 
   render() {
   	var goalsArray = this.props.goalsList;
+  	var columnsShow = this.props.columnsShow;
     var rowsTemplate = this.props.content.map(function(item, index){
       return ( 
         <Row 
           key={'row_item_' + index} 
           rowKey={index} 
           rowData={item}
-          goalsList={goalsArray}/>
+          goalsList={goalsArray}
+          columnsShow={columnsShow}/>
         );
      })
    
@@ -34,6 +38,10 @@ class Table extends React.Component {
       <div>
         <table border="1" onClick={this.onTableClick.bind(this)}>  
           <Header/>
+          <Total 
+            totalData={this.props.totalData} 
+            goalsList={goalsArray}
+            columnsShow={columnsShow}/>
        	  {rowsTemplate}
         </table>
       </div>
@@ -45,13 +53,15 @@ function mapStateToProps (state) {
   return {
     content: state.content,
     goalsList: state.goals_list,
-    showDialog: state.showDialog,
-    columnsShow: state.columnsShow
+    totalData: state.total,
+    columnsShow: state.columnsShow,
+
+    showDialog: state.showDialog
   }
 } 
 
 function mapDispatchToProps(dispatch) {
-  	return bindActionCreators({ setContent }, dispatch)
+  	return bindActionCreators({ setTotal, setContent }, dispatch)
 }
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Table);
