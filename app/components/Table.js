@@ -36,6 +36,7 @@ class Table extends React.Component {
    
     return(
       <div>
+        <ColChooseDialog />
         <table border="1" onClick={this.onTableClick.bind(this)}>  
           <Header/>
           <Total 

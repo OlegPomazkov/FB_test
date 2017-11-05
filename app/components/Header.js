@@ -13,6 +13,11 @@ class HeaderReact extends React.Component {
     };
   }
 
+  onHeaderClick(e) {
+   var data = this.props.showDialog
+    this.props.toggleVisibility(data);  
+  }
+
   render() {
     var headerRow1Template = [];
     var headerRow2Template = [];
@@ -69,7 +74,7 @@ class HeaderReact extends React.Component {
     }
 
     return(
-      <thead>
+      <thead onClick={this.onHeaderClick.bind(this)}>
         <tr>{headerRow1Template}</tr>
         <tr>{headerRow2Template}</tr>
       </thead>  

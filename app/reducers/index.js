@@ -18,7 +18,9 @@ function tableContent(state = initialState, action) {
       }
     }
   }
-  
+   
+  console.log('CURRENT ACTION -----> ', action.type)
+
   switch (action.type) {
     case 'SET_CONTENT':
       return Object.assign({}, state, { content: action.payload });
