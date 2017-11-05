@@ -66,30 +66,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Table);
-
-
-
-//   render() {
-//     var contentArray = this.props.content;
-//     var rowVisibility = this.props.columnsShow.map((item) => item.status);
-
-//     var rowsTemplate = contentArray.map(function(item, index){
-//       return ( 
-//         <Row 
-//           key={'row_item_' + index} 
-//           rowKey={index} 
-//           rowData={item}/>
-//           );
-//      })
-   
-//     return(
-//       <div>
-//         <ColChooseDialog />
-//         <table border="1" onClick={this.onTableClick.bind(this)}>  
-//           <Header/>
-//        	  {rowsTemplate}
-//         </table>
-//       </div>
-//     );
-//   }
-// }

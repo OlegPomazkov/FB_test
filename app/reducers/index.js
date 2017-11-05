@@ -29,7 +29,10 @@ function tableContent(state = initialState, action) {
     case 'TOGGLE_VISIBILITY':  
       return Object.assign({}, state, { showDialog: (action.payload ? 0 : 1)});
     case 'CHANGE_COLS_STATUS':
-      return Object.assign({}, state, { columnsShow: action.payload });;
+      return Object.assign({}, state, { 
+        columnsShow: action.payload.columnsShow,
+        visibility: action.payload.visibility 
+      });
 
     default:
       return state;

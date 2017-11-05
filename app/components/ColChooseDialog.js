@@ -49,10 +49,10 @@ class ColChooseDialogReact extends React.Component {
     var checkboxIndex =  e.target.getAttribute('checkboxindex');
 
     var changeFunction =function(prevState) {
-      if(prevState.checkboxStatus[checkboxIndex] === 'true') {
-        prevState.checkboxStatus[checkboxIndex] = 'false';
+      if(prevState.checkboxStatus[tableColumns[checkboxIndex]] === 'true') {
+        prevState.checkboxStatus[tableColumns[checkboxIndex]] = 'false';
       } else {
-        prevState.checkboxStatus[checkboxIndex] = 'true';
+        prevState.checkboxStatus[tableColumns[checkboxIndex]] = 'true';
       }
 
       return prevState;
@@ -61,23 +61,37 @@ class ColChooseDialogReact extends React.Component {
     this.setState(changeFunction);
   }
 
-  onButtonOkClick (e) {
-    var newColsStatusObject;
+  onButtonOkClick () {
     var currentStatus = this.state.checkboxStatus;
 
-    newColsStatusObject = this.props.columnsShow.map(
-      (item, index) => {
-        return {
-          name: item.name,
-          status: currentStatus[index]
-        };  
-      });
-    this.props.changeColsStatus(newColsStatusObject);
+    var getNewColsStatusAndVisibilityObjects = function() {
+      var newColsStatusObject = {};
+      var newVisbilityObject = {};
+      var keyParts;
+  
+      for (let key in currentStatus) {
+        newColsStatusObject[key] = (currentStatus[key] === 'true') ? true : false;  
+      }
+      for (let key in newColsStatusObject) {
+        keyParts = key.split('__');
+        if (keyParts.length === 1) {
+          newVisbilityObject[keyParts[0]] = newColsStatusObject[key];
+        } else {
+          if( !newVisbilityObject[keyParts[0]] ) newVisbilityObject[keyParts[0]] = {};
+          newVisbilityObject[keyParts[0]][keyParts[1]] = newColsStatusObject[key];
+        }
+      }
+      return { 
+        columnsShow: newColsStatusObject,
+        visibility: newVisbilityObject
+      };  
+    };
+    this.props.changeColsStatus(getNewColsStatusAndVisibilityObjects());
     this.props.toggleVisibility(1);
   }
 
   onButtonCancelClick () {
-    this.setState({ checkboxStatus: this.props.columnsShow.map((item) => item.status)});
+    this.setState({ checkboxStatus: this.setCheckboxStatus()});
     this.props.toggleVisibility(1);
   }
 
