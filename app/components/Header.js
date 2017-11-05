@@ -37,18 +37,17 @@ class HeaderReact extends React.Component {
           }
         }	
       	currentTh = (
-      	  <th key={'head_item_1_' + i} colSpan={numOfColsToMove}>
+      	  <th key={'head_item_1_' + i} colSpan={numOfColsForColSpan}>
             {tableHeaders[tableColumns[i].split('__')[0]]}
           </th> 
         );
         i += (numOfColsToMove - 1);
       } else {
-//        className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}
       	currentTh = (
       	  <th 
             key={'head_item_1_' + i} 
             rowSpan="2"
-            >
+            className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
             {tableHeaders[tableColumns[i]]}
           </th>
         );
@@ -57,11 +56,10 @@ class HeaderReact extends React.Component {
     }
     for(let i = 0; i < tableColumns.length; i++){
       if(tableColumns[i].split('__')[0].split('-')[0] === 'goals') {
-//      	className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}
         currentTh = (
       	  <th 
             key={'head_item_2_' + i}
-            >
+            className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
             {tableHeaders[tableColumns[i].split('__')[1]]}
           </th>
         );
