@@ -3,12 +3,15 @@ const initialState = require("../data/initialState.js");
 var tableColumns = require("../data/tableDescription.js").tableColumns; 
 
 function tableContent(state = initialState, action) {
+  if (localStorage.getItem('visibility')){
+    state = Object.assign({}, state, {visibility: JSON.parse(localStorage.getItem('visibility'))});
+  } else {
+    localStorage.setItem('visibility', JSON.stringify(state.visibility)); 
+  }
   if( !state.columnsShow) {
-    // TODO: Here to check local storage later !!!
-    
-    var state = Object.assign({}, state, {columnsShow: {} });
     var columnName;
-
+    
+    state = Object.assign({}, state, {columnsShow: {} }); 
     for( let i = 0; i < tableColumns.length; i++ ){
       columnName =  tableColumns[i].split('__');
       if (columnName.length === 1 ){
@@ -29,6 +32,8 @@ function tableContent(state = initialState, action) {
     case 'TOGGLE_VISIBILITY':  
       return Object.assign({}, state, { showDialog: (action.payload ? 0 : 1)});
     case 'CHANGE_COLS_STATUS':
+      localStorage.setItem('visibility', JSON.stringify(action.payload.visibility));
+
       return Object.assign({}, state, { 
         columnsShow: action.payload.columnsShow,
         visibility: action.payload.visibility 
