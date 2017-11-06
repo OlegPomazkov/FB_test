@@ -29,13 +29,25 @@ class Row extends React.Component {
         );
       } else {
         if (cellDataName.length === 1 ) {
-          currentTd = (
-            <td 
-              key={'row_item_' + rowKey + '_' + i}
-              className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
-              {this.props.rowData[cellDataName[0]]}
-            </td>
-          );
+          if(cellDataName[0] === 'is_active'){
+            currentTd = (
+              <td 
+                key={'row_item_' + rowKey + '_' + i}
+                className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
+                  <input 
+                    type="checkbox" 
+                    checked={this.props.rowData[cellDataName[0]]}/>
+              </td>
+            );
+          } else {
+            currentTd = (
+              <td 
+                key={'row_item_' + rowKey + '_' + i}
+                className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
+                {this.props.rowData[cellDataName[0]]}
+              </td>
+            );
+          }  
         } else {
           currentTd = (
             <td 
@@ -45,7 +57,6 @@ class Row extends React.Component {
             </td>
           );
         } 
-        
       }
       rowTemplate.push(currentTd);
     }

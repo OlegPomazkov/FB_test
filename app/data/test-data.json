@@ -46,7 +46,7 @@
       ]
     },
     {
-      "is_active": true,
+      "is_active": false,
       "value": "Google Adwords",
       "state": "ready",
       "costs": {

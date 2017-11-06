@@ -21,8 +21,6 @@ function tableContent(state = initialState, action) {
       }
     }
   }
-   
-  console.log('CURRENT ACTION -----> ', action.type)
 
   switch (action.type) {
     case 'SET_CONTENT':
@@ -47,6 +45,3 @@ function tableContent(state = initialState, action) {
 }
 
 module.exports = tableContent;
-
-// var tableContent = require("./tableContent.js");
-// module.exports = combineReducers({tableContent});

@@ -11,7 +11,7 @@ function getJSON(callback1, callback2) {
 }
 
 function getFileData(callback1, callback2) {
-  getJSON(data => callback1(JSON.parse(data).content)); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  getJSON(data => callback1(JSON.parse(data).content));
   getJSON(data => callback2(JSON.parse(data).total));
 }
 
