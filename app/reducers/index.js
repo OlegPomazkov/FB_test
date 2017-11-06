@@ -8,6 +8,7 @@ function tableContent(state = initialState, action) {
   } else {
     localStorage.setItem('visibility', JSON.stringify(state.visibility)); 
   }
+  
   if( !state.columnsShow) {
     var columnName;
     
