@@ -145,7 +145,8 @@ const initialState =  {
       "cpa": true,
        "cr": true
     }
-  }  
+  },
+  "chooseFilter": "not_goal"  
 };
 
 module.exports = initialState;

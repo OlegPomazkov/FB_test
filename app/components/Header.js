@@ -2,6 +2,8 @@ var React = require('react');
 var connect = require("react-redux").connect;
 var bindActionCreators = require("redux").bindActionCreators;
 var toggleVisibility = require("../actions/DialogVisibilityAction.js");
+var setFilterData = require("../actions/ChooseFilterAction.js");
+
 var {tableColumns, tableHeaders} = require("../data/tableDescription.js"); 
 
 class HeaderReact extends React.Component {
@@ -14,7 +16,9 @@ class HeaderReact extends React.Component {
   }
 
   onHeaderClick(e) {
-   var data = this.props.showDialog
+    var data = this.props.showDialog
+    
+    this.props.setFilterData(e.target.getAttribute('filterdata'));
     this.props.toggleVisibility(data);  
   }
 
@@ -45,7 +49,8 @@ class HeaderReact extends React.Component {
       	  <th 
             key={'head_item_1_' + i} 
             colSpan={numOfColsForColSpan}
-            className={numOfColsForColSpan ? '': 'none'}>
+            className={numOfColsForColSpan ? '': 'none'}
+            filterdata={tableColumns[i].split('__')[0]}>
             {tableHeaders[tableColumns[i].split('__')[0]]}
           </th> 
         );
@@ -55,7 +60,8 @@ class HeaderReact extends React.Component {
       	  <th 
             key={'head_item_1_' + i} 
             rowSpan="2"
-            className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
+            className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}
+            filterdata='not_goal'>
             {tableHeaders[tableColumns[i]]}
           </th>
         );
@@ -93,7 +99,7 @@ function mapStateToProps (state) {
 } 
 
 function mapDispatchToProps(dispatch) { 
-  	return bindActionCreators({ toggleVisibility }, dispatch)
+  	return bindActionCreators({ toggleVisibility, setFilterData }, dispatch)
 }
 
 

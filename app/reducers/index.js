@@ -31,6 +31,8 @@ function tableContent(state = initialState, action) {
       return Object.assign({}, state, { total: action.payload });
     case 'TOGGLE_VISIBILITY':  
       return Object.assign({}, state, { showDialog: (action.payload ? 0 : 1)});
+    case 'SET_CHOOSE_FILTER':  
+      return Object.assign({}, state, { chooseFilter: action.payload });  
     case 'CHANGE_COLS_STATUS':
       localStorage.setItem('visibility', JSON.stringify(action.payload.visibility));
 

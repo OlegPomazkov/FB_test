@@ -96,9 +96,13 @@ class ColChooseDialogReact extends React.Component {
   }
 
   render() {
+   
+    console.log('In dialog cooseFilter ----> ', this.props.chooseFilter);
+
     var boundedCheckboxChange = this.onCheckboxChange.bind(this);
     var statusObject = this.state.checkboxStatus;
     var namesObject = this.state.checkboxNames;
+    var currentFilter = this.props.chooseFilter;
 
     return (
       <div className={'choose-dialog-background ' + (this.props.showDialog ? '': 'none')}> 
@@ -106,7 +110,14 @@ class ColChooseDialogReact extends React.Component {
           <ul>
             {
               tableColumns.map(function(item, index){
-                if( index < 3 ) return;
+                if( index < 3 ) return; // Первые 3 столбца видны всегда
+                
+                if(item.split('__')[0].split('-')[0] === 'goals') {
+                  if(item.split('__')[0] !== currentFilter) return;
+                } else {
+                  if(currentFilter !== 'not_goal')  return; 
+                }
+
                 var status
 
                 if (statusObject[item] === 'true') {
@@ -137,7 +148,8 @@ class ColChooseDialogReact extends React.Component {
 function mapStateToProps (state) {
   return {
     showDialog: state.showDialog,
-    columnsShow: state.columnsShow
+    columnsShow: state.columnsShow,
+    chooseFilter: state.chooseFilter
   }
 } 
 
