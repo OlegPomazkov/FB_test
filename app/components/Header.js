@@ -77,7 +77,7 @@ class HeaderReact extends React.Component {
     }
 
     return(
-      <thead onClick={this.onHeaderClick.bind(this)}>
+      <thead className='header' onClick={this.onHeaderClick.bind(this)}>
         <tr>{headerRow1Template}</tr>
         <tr>{headerRow2Template}</tr>
       </thead>  

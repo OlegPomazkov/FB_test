@@ -101,31 +101,34 @@ class ColChooseDialogReact extends React.Component {
     var namesObject = this.state.checkboxNames;
 
     return (
-      <div className={this.props.showDialog ? '': 'none'} >
-        <ul>
-          {
-            tableColumns.map(function(item, index){
-              var status
+      <div className={'choose-dialog-background ' + (this.props.showDialog ? '': 'none')}> 
+        <div className='choose-dialog'>
+          <ul>
+            {
+              tableColumns.map(function(item, index){
+                if( index < 3 ) return;
+                var status
 
-              if (statusObject[item] === 'true') {
-                status = 'checked';
-              } else {
-                status = '';
-              }
+                if (statusObject[item] === 'true') {
+                  status = 'checked';
+                } else {
+                  status = '';
+                }
 
-              return (<li key={'column_name_'+index}>
-                <input 
-                  type="checkbox" 
-                  checked={status}
-                  checkboxindex = {index}
-                  onChange={boundedCheckboxChange}/>
-                <p>{namesObject[item]}</p>
-              </li>);
-            })
-          }
-        </ul>
-        <button onClick={this.onButtonOkClick.bind(this)}>OK</button>
-        <button onClick={this.onButtonCancelClick.bind(this)}>Отмена</button>
+                return (<li key={'column_name_'+index}>
+                  <input 
+                    type="checkbox" 
+                    checked={status}
+                    checkboxindex = {index}
+                    onChange={boundedCheckboxChange}/>
+                  <p>{namesObject[item]}</p>
+                </li>);
+              })
+            }
+          </ul>
+          <button onClick={this.onButtonOkClick.bind(this)}>OK</button>
+          <button onClick={this.onButtonCancelClick.bind(this)}>Отмена</button>
+        </div>
       </div>
     );
   }

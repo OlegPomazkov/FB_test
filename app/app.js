@@ -6,7 +6,7 @@ var configureStore = require("./store/configureStore");
 var Table = require('./components/Table.js');
    
 const store = configureStore();
-
+//
 ReactDOM.render(
   <Provider store={store}>
     <Table />
