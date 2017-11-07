@@ -72,7 +72,8 @@ class HeaderReact extends React.Component {
         currentTh = (
       	  <th 
             key={'head_item_2_' + i}
-            className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}>
+            className={this.props.columnsShow[tableColumns[i]] ? '': 'none'}
+            filterdata='not_show'>
             {tableHeaders[tableColumns[i].split('__')[1]]}
           </th>
         );

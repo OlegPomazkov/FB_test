@@ -100,35 +100,36 @@ class ColChooseDialogReact extends React.Component {
     var statusObject = this.state.checkboxStatus;
     var namesObject = this.state.checkboxNames;
     var currentFilter = this.props.chooseFilter;
-    var rowsTemplate;
+    var rowsTemplate = [];
+    var cellTemplate;
 
     rowsTemplate = tableColumns.map(function(item, index){
-       if( index < 3 ) return; // Первые 3 столбца видны всегда
+        if( index < 3 ) return; // Первые 3 столбца видны всегда
+  
+        if(item.split('__')[0].split('-')[0] === 'goals') {
+          if(item.split('__')[0] !== currentFilter) return;
+        } else {
+          if(currentFilter !== 'not_goal')  return; 
+        }
+        var status
 
-      if(item.split('__')[0].split('-')[0] === 'goals') {
-        if(item.split('__')[0] !== currentFilter) return;
-      } else {
-        if(currentFilter !== 'not_goal')  return; 
-      }
+        if (statusObject[item] === 'true') {
+          status = 'checked';
+        } else {
+          status = '';
+        }
 
-      var status
+        return (<li key={'column_name_'+index}>
+          <input 
+            type="checkbox" 
+            checked={status}
+            checkboxindex = {index}
+            onChange={boundedCheckboxChange}/>
+           <p>{namesObject[item]}</p>
+        </li>);
+      }).filter((item) => (item !== undefined));
 
-      if (statusObject[item] === 'true') {
-        status = 'checked';
-      } else {
-        status = '';
-      }
-
-      return (<li key={'column_name_'+index}>
-        <input 
-          type="checkbox" 
-          checked={status}
-          checkboxindex = {index}
-          onChange={boundedCheckboxChange}/>
-         <p>{namesObject[item]}</p>
-      </li>);
-    });
-    if (rowsTemplate.length === 0) return;
+    if (rowsTemplate.length === 0) return null;
 
     return (
       <div className={'choose-dialog-background ' + (this.props.showDialog ? '': 'none')}> 
