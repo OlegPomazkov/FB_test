@@ -48,9 +48,24 @@ function mainReducer(state = initialState, action) {
         points: arr,
         path: state.path
       })
-    case 'CHANGE_POINTS_ORDER':  
-// TODO: Not correct yet !!!!!!!!!!!!!!!!!!!!1        
-      return Object.assign({}, state, { showDialog: (action.payload ? 0 : 1)});
+    case 'CHANGE_POINTS_ORDER':
+      var from = action.payload.from
+      var to = action.payload.to
+
+      console.log('changed from ', action.payload.from, ' to ', action.payload.to)
+      if (from === to ) return Object.assign({}, state) 
+      var arr = state.points.map(item => item)
+      var coords = state.points.map(item => item.coords)
+      
+      if(from < to) to--
+      arr.splice(to, 0, arr.splice(from, 1)[0])
+      coords.splice(to, 0, coords.splice(from, 1)[0])
+      state.path.geometry.setCoordinates(coords)
+
+      return Object.assign({}, state, { 
+        points: arr,
+        path: state.path
+      })
 
     default:
       return state;

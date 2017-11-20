@@ -9,6 +9,7 @@ var PathMap = require("../components/pathMap.js")
 var mapAppears = require("../actions/mapAppears.js")
 var addPoint = require("../actions/addPoint.js")
 var deletePoint = require("../actions/deletePoint.js")
+var changePointsOrder =  require("../actions/changePointsOrder.js")
 
 class PathConstructor extends React.Component {
   constructor(props){
@@ -26,7 +27,11 @@ class PathConstructor extends React.Component {
       })  
     
     coordsArr = this.props.pathPoints.map( item => item.coords )
-    var pathLine = new window.ymaps.Polyline(coordsArr, {},{});
+    var pathLine = new window.ymaps.Polyline(
+      coordsArr, 
+      {},
+      {draggable: true}
+    );
     
     pathMap.geoObjects.add(pathLine)
 //    pathLine.geometry.setCoordinates(coordsArr)
@@ -50,14 +55,22 @@ class PathConstructor extends React.Component {
     })
   }
 
+  changePointsOrder (e) {
+    this.props.changePointsOrder({
+      from: e.from,
+      to: e.to
+    })
+  }
+
   render() {
     return(
       <div> 
         <Input 
           addPoint={this.addPoint.bind(this)}/>
-        <List 
-          deletePoint={this.deletePoint.bind(this)}
-          pathPoints = { this.props.pathPoints } />
+        <List
+          changePointsOrder = {this.changePointsOrder.bind(this)}
+          deletePoint = {this.deletePoint.bind(this)}
+          pathPoints = {this.props.pathPoints} />
         <PathMap 
           pathMapClick={this.loadMap.bind(this)}
           isMap= { this.props.isMap}/>
@@ -79,7 +92,8 @@ function mapDispatchToProps(dispatch) {
   	return bindActionCreators({ 
       mapAppears, 
       addPoint,
-      deletePoint
+      deletePoint,
+      changePointsOrder
     }, dispatch)
 }
 

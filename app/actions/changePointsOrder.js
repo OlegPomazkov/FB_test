@@ -1,8 +1,8 @@
-var toggleVisibililty = function(data){
+var changePointsOrder = function(data){
   return {
-  	type: 'TOGGLE_VISIBILITY',
+  	type: 'CHANGE_POINTS_ORDER',
     payload: data
-  };  
-};
+  }  
+}
 
-module.exports = toggleVisibililty;
+module.exports = changePointsOrder
