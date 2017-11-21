@@ -20,32 +20,77 @@ class PathConstructor extends React.Component {
     if( !(window.ymaps && window.ymaps.Map)) return
     if( this.props.pathMap.getCenter ) return
 
-    var coordsArr = []
+    var placemarks = []
+    var lines = []
     var pathMap = new window.ymaps.Map('pathMapId', {
         center: [55.87, 37.56],
         zoom: 12
       })  
     
-    coordsArr = this.props.pathPoints.map( item => item.coords )
-    var pathLine = new window.ymaps.Polyline(
-      coordsArr, 
-      {},
-      {draggable: true}
-    );
-    
-    pathMap.geoObjects.add(pathLine)
-//    pathLine.geometry.setCoordinates(coordsArr)
+    this.props.pathPoints.forEach( (item, index) => {
+      let placemark = new window.ymaps.Placemark(
+        item.coords,{ 
+          balloonContent: item.name
+        },{
+          draggable: true
+        })
+
+      placemarks.push(placemark)
+      pathMap.geoObjects.add(placemarks[index])
+
+      placemarks[index].events.add("beforedragstart", function (event) {
+        let coords = event.originalEvent.target.geometry.getCoordinates()
+        event.originalEvent.target.uniqIndex = 'id_' + coords[0] + '_' + coords[1]
+      })
+
+      placemarks[index].events.add("dragend", function (event) {
+        console.log ('STOPPP!!!', event.originalEvent.target.uniqIndex)
+      })
+    })
+
+    if (this.props.pathPoints.length > 1) {
+      for ( let i = 1; i < this.props.pathPoints.length; i++) {
+        let line = new window.ymaps.Polyline(
+          [this.props.pathPoints[i-1].coords,this.props.pathPoints[i].coords],
+          {},{})
+        lines.push(line)
+        pathMap.geoObjects.add(lines[i-1])
+      }      
+    }
+
     this.props.mapAppears({
       map: pathMap,
-      path: pathLine
+      placemarks: placemarks,
+      lines: lines
     })
   }
 
   addPoint (e) {
-    if(e.keyCode !== 13 || !this.props.isMap) return
+
+    console.log( 'e ------------> ', e.keyCoode)
+
+    if (e.keyCoode !== 13) return
+
+    let placemark = new window.ymaps.Placemark(
+      this.props.pathMap.getCenter(),{ 
+        balloonContent: e.target.value
+      },{
+        draggable: true
+    })
+
+    placemark.events.add("beforedragstart", function (event) {
+      let coords = event.originalEvent.target.geometry.getCoordinates()
+      event.originalEvent.target.uniqIndex = 'id_' + coords[0] + '_' + coords[1]
+    })
+
+    placemark.events.add("dragend", function (event) {
+      console.log ('STOPPP!!!', event.originalEvent.target.uniqIndex)
+    })
+    
     this.props.addPoint({
       name: e.target.value,
-      coords: this.props.pathMap.getCenter()
+      coords: this.props.pathMap.getCenter(),
+      placemark: placemark
     })
   }
 
@@ -82,7 +127,8 @@ class PathConstructor extends React.Component {
 function mapStateToProps (state) {
   return {
     pathMap: state.pathMap,
-    path: state.path,
+    placemarks: state.placemarks,
+    lines: state.lines,
     isMap: state.isMap,
     pathPoints: state.points
   }
