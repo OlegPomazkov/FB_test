@@ -1,14 +1,5 @@
 const initialState = {
-  points: [
-    {
-      name: 'One',
-      coords: [55.87, 37.56]
-    },
-    {
-      name: 'Two',
-      coords: [55.88, 37.55]
-    }
-  ],
+  points: [],
   pathMap: {},
   placemarks: [],
   lines: [],
@@ -25,8 +16,6 @@ function mainReducer(state = initialState, action) {
     case 'MAP_APPEARS':     
       return Object.assign({}, state, { 
         pathMap: action.payload.map,
-        placemarks: action.payload.placemarks,
-        lines: action.payload.lines,
         isMap: true
       });
 
@@ -82,10 +71,7 @@ function mainReducer(state = initialState, action) {
       var from = action.payload.from
       var to = action.payload.to
 
-      console.log('changed from ', action.payload.from, ' to ', action.payload.to)
       if (from === to ) return Object.assign({}, state) 
-      
-      if(from < to) to--
       arr.splice(to, 0, arr.splice(from, 1)[0])
       placemarks.splice(to, 0, placemarks.splice(from, 1)[0])
 
@@ -102,6 +88,30 @@ function mainReducer(state = initialState, action) {
       return Object.assign({}, state, { 
         points: arr,
         pathMap: state.pathMap,
+        placemarks: placemarks,
+        lines: lines
+      })
+
+    case 'MOVE_POINT':
+      let index = action.payload.index
+      let newCoords = action.payload.newCoords
+
+      arr[index].coords = newCoords
+      placemarks[index].geometry.setCoordinates(newCoords)
+
+      if( lines.length ) {
+        if ( index === 0 ) {
+          lines[0].geometry.setCoordinates([newCoords, arr[1].coords])
+        } else if ( index === (arr.length - 1) ) {
+          lines[index-1].geometry.setCoordinates([arr[index-1].coords, newCoords])
+        } else {
+          lines[index-1].geometry.setCoordinates([arr[index-1].coords, newCoords])
+          lines[index].geometry.setCoordinates([newCoords, arr[index+1].coords])
+        }
+      }
+
+      return Object.assign({}, state, { 
+        points: arr,
         placemarks: placemarks,
         lines: lines
       })

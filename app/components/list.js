@@ -22,8 +22,6 @@ class List extends React.Component {
   dragOver(e) {
     e.preventDefault();
     this.over = e.target;
-
-    console.log('OVER  ', e.target.closest('li'))
   }
 
   render() {
