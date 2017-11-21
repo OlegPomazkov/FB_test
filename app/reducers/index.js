@@ -95,9 +95,11 @@ function mainReducer(state = initialState, action) {
     case 'MOVE_POINT':
       let index = action.payload.index
       let newCoords = action.payload.newCoords
+      let balloonContent = action.payload.balloonContent
 
       arr[index].coords = newCoords
       placemarks[index].geometry.setCoordinates(newCoords)
+      placemarks[index].properties.set({balloonContent: balloonContent})
 
       if( lines.length ) {
         if ( index === 0 ) {

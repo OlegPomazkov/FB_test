@@ -23,7 +23,7 @@ class PathConstructor extends React.Component {
 
     var pathMap = new window.ymaps.Map('pathMapId', {
         center: [55.87, 37.56],
-        zoom: 12
+        zoom: 14
       })  
 
     this.props.mapAppears({
@@ -36,6 +36,8 @@ class PathConstructor extends React.Component {
     let coords = this.props.pathMap.getCenter()
     let iconContent = e.target.value
     let bindedMovePoint = this.movePoint.bind(this)
+
+    e.target.value = ''
 
     ymaps.geocode(coords).then((res) => {
       let names = [];
@@ -90,6 +92,7 @@ class PathConstructor extends React.Component {
     let newCoords = e.originalEvent.target.geometry.getCoordinates()
     let coordsArr = this.props.pathPoints.map(item => item.coords)
     let pointIndex = -1
+    let bindedMovePoint = this.props.movePoint
 
     for (let i = 0; i < coordsArr.length; i++) {
       if (coordsArr[i][0] === oldCoords[0] && coordsArr[i][1] === oldCoords[1]) {
@@ -97,10 +100,21 @@ class PathConstructor extends React.Component {
         break
       }
     }
-    this.props.movePoint({
-      newCoords: newCoords,
-      index: pointIndex
-    })
+
+    ymaps.geocode(newCoords).then((res) => {
+      let names = [];
+
+      res.geoObjects.each((obj) => {
+        names.push(obj.properties.get('name'));
+      });
+      names.splice(-3)
+
+      bindedMovePoint({
+        newCoords: newCoords,
+        index: pointIndex,
+        balloonContent: names.reverse().join(', ') 
+      })
+    })  
   }
 
   render() {
