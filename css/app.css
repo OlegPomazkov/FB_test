@@ -3,50 +3,28 @@ body {
 	font-size: 12px;
 }
 
-.none {
-  display: none !important;
+.application {
+  max-width: 800px;
+  max-height: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  background: #ded
 }
 
-table {
-	border-collapse: collapse;
+.side-panel {
+  float: left;
+  width: 100px;
+  padding: 3px;
 }
 
-.header {
-  background-color: #eee
+.map {
+  float: right;
+  padding: 3px;
 }
 
-.total {
-  background-color: #ded
-}
-
-.choose-dialog-background {
-  position: fixed;
-  width: 100%;
+.mapitself {
+  display: block;
   height: 100%;
-}
-
-.choose-dialog {
-  position: relative;	
-  max-width: 30%;
-  z-index: 10;
-  margin-top: 30px;
-  margin-left: 50px;
-  margin-bottom: 80px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  text-align: center;
-  background-color: #ddd;
-  font-size: 10px;
-}
-
-.choose-dialog ul {	
-  text-align: left;	
-  list-style-type: none;
-}
-.choose-dialog ul li input{
-  display: inline-block;
-}
-.choose-dialog ul li p{
-  display: inline-block;
-  margin: 0;
+  width: 100%;
 }

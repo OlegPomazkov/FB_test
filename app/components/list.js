@@ -46,8 +46,8 @@ class List extends React.Component {
       })
 
     return(
-      <div>
-        <p>Текущий маршрут</p>
+      <div className='list'>
+        <p className='list-header'>Текущий маршрут</p>
         { listItemsTemplate.length ? 
           <ul onDragOver={this.dragOver.bind(this)}>
             {listItemsTemplate} 

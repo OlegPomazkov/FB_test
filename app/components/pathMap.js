@@ -7,9 +7,11 @@ class PathMap extends React.Component {
 
   render() {
     return(
-      <div onClick={this.props.pathMapClick}>
+      <div 
+        className='map'
+        onClick={this.props.pathMapClick}>
         { !this.props.isMap ?
-          'Click here to load map' : '' }
+        <p className='warning'> 'Click here to load map'</p> : '' }
         <div id='pathMapId' style={ {height: 400, width: 400 } }></div>
       </div>
     );

@@ -7,8 +7,8 @@ class Input extends React.Component {
 
   render() {
     return(
-      <div>
-        <p>Новая точка маршрута</p>
+      <div className='input'>
+        <p className='input-header'>Новая точка маршрута</p>
         <input 
           type='text' 
           placeholder='Введите наименование' 

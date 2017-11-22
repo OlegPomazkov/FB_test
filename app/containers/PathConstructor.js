@@ -120,13 +120,15 @@ class PathConstructor extends React.Component {
   render() {
 
     return(
-      <div> 
-        <Input 
-          addPoint={this.addPoint.bind(this)}/>
-        <List
-          changePointsOrder = {this.changePointsOrder.bind(this)}
-          deletePoint = {this.deletePoint.bind(this)}
-          pathPoints = {this.props.pathPoints} />
+      <div className='application'> 
+        <div className='side-panel'> 
+          <Input 
+            addPoint={this.addPoint.bind(this)}/>
+          <List
+            changePointsOrder = {this.changePointsOrder.bind(this)}
+            deletePoint = {this.deletePoint.bind(this)}
+            pathPoints = {this.props.pathPoints} />
+         </div>   
         <PathMap 
           pathMapClick={this.loadMap.bind(this)}
           isMap= { this.props.isMap}/>
