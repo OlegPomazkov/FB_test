@@ -39,10 +39,14 @@ class List extends React.Component {
             draggable='true'
             onDragEnd={bindedDragEnd}
             onDragStart={bindedDragStart}>
-              <p>{ item.name }</p>
+              <p 
+                className='list__item__content'>
+                { item.name }</p>
               <button
+                className='list__item__button'
                 index={index}
-                onClick={bindedDeletePoint}>Удалить</button>
+                onClick={bindedDeletePoint}
+                title='Удалить'></button>
           </li>)
       })
 

@@ -140,9 +140,8 @@ class PathConstructor extends React.Component {
             deletePoint = {this.deletePoint.bind(this)}
             pathPoints = {this.props.pathPoints} />
          </div>   
-        <PathMap 
-          pathMapClick={this.loadMap.bind(this)}
-          isMap= { this.props.isMap}/>
+        <PathMap
+          isMap= {this.props.isMap}/>
       </div>
     );
   }

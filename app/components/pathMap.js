@@ -12,14 +12,12 @@ class PathMap extends React.Component {
         onClick={this.props.pathMapClick}>
         { !this.props.isMap ?
         <p className='map__placeholder'>Карта загружается ... </p> : '' }
-        <div style={ {height: 400, width: 400 } }
+        <div style={ {height: 377, width: 400 } }
           id='pathMapId' 
           className='map__map'></div>
       </div>
     );
   }
 }
-
-// style={ {height: 400, width: 400 } }
 
 module.exports = PathMap
