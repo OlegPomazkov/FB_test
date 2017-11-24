@@ -11,7 +11,7 @@ class PathMap extends React.Component {
         className='map__container'
         onClick={this.props.pathMapClick}>
         { !this.props.isMap ?
-        <p className='map__placeholder'> 'Click here to load map'</p> : '' }
+        <p className='map__placeholder'>Карта загружается ... </p> : '' }
         <div style={ {height: 400, width: 400 } }
           id='pathMapId' 
           className='map__map'></div>

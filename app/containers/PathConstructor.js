@@ -120,6 +120,15 @@ class PathConstructor extends React.Component {
   }
 
   render() {
+    let intervalId
+
+    if( !this.props.isMap) {
+      let bindedloadMap = this.loadMap.bind(this)
+      
+      intervalId = setInterval( bindedloadMap, 1000)
+    } else {
+      if (intervalId) clearInterval(intervalId)
+    }
 
     return(
       <div className='application'> 
