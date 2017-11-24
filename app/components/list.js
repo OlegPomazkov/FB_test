@@ -2,7 +2,7 @@ var React = require('react');
 
 class List extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
   }
 
   dragStart(e) {
@@ -12,11 +12,11 @@ class List extends React.Component {
 
   dragEnd(e) {
     var from = Number(this.dragged.closest('li').dataset.id);
-    var to = this.over.closest('li') ? Number(this.over.closest('li').dataset.id) : from
+    var to = this.over.closest('li') ? Number(this.over.closest('li').dataset.id) : from;
     this.props.changePointsOrder({
       from: from,
       to: to
-    }) 
+    }); 
   }
 
   dragOver(e) {
@@ -25,10 +25,10 @@ class List extends React.Component {
   }
 
   render() {
-    var listItemsTemplate = []
-    var bindedDeletePoint = this.props.deletePoint.bind(this) 
-    var bindedDragEnd = this.dragEnd.bind(this) 
-    var bindedDragStart = this.dragStart.bind(this)
+    var listItemsTemplate = [];
+    var bindedDeletePoint = this.props.deletePoint.bind(this); 
+    var bindedDragEnd = this.dragEnd.bind(this);
+    var bindedDragStart = this.dragStart.bind(this);
 
     listItemsTemplate = this.props.pathPoints.map(function(item, index){
         return (
@@ -48,7 +48,7 @@ class List extends React.Component {
                 onClick={bindedDeletePoint}
                 title='Удалить'></button>
           </li>)
-      })
+      });
 
     return(
       <div className='list__container'>
@@ -66,4 +66,4 @@ class List extends React.Component {
   }
 }
 
-module.exports = List
+module.exports = List;

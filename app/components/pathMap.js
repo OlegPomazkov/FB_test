@@ -20,4 +20,4 @@ class PathMap extends React.Component {
   }
 }
 
-module.exports = PathMap
+module.exports = PathMap;
