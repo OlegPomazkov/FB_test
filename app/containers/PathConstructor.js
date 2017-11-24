@@ -23,8 +23,10 @@ class PathConstructor extends React.Component {
 
     var pathMap = new window.ymaps.Map('pathMapId', {
         center: [55.87, 37.56],
-        zoom: 14
+        zoom: 15
       })  
+
+    pathMap.container.fitToViewport();
 
     this.props.mapAppears({
       map: pathMap
@@ -121,7 +123,7 @@ class PathConstructor extends React.Component {
 
     return(
       <div className='application'> 
-        <div className='side-panel'> 
+        <div className='side__panel'> 
           <Input 
             addPoint={this.addPoint.bind(this)}/>
           <List

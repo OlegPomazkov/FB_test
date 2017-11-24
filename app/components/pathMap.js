@@ -8,14 +8,18 @@ class PathMap extends React.Component {
   render() {
     return(
       <div 
-        className='map'
+        className='map__container'
         onClick={this.props.pathMapClick}>
         { !this.props.isMap ?
-        <p className='warning'> 'Click here to load map'</p> : '' }
-        <div id='pathMapId' style={ {height: 400, width: 400 } }></div>
+        <p className='map__placeholder'> 'Click here to load map'</p> : '' }
+        <div style={ {height: 400, width: 400 } }
+          id='pathMapId' 
+          className='map__map'></div>
       </div>
     );
   }
 }
+
+// style={ {height: 400, width: 400 } }
 
 module.exports = PathMap

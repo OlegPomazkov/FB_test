@@ -32,7 +32,8 @@ class List extends React.Component {
 
     listItemsTemplate = this.props.pathPoints.map(function(item, index){
         return (
-          <li 
+          <li
+            className='list__item' 
             key={'list_item_'+index}
             data-id={index}
             draggable='true'
@@ -46,13 +47,15 @@ class List extends React.Component {
       })
 
     return(
-      <div className='list'>
-        <p className='list-header'>Текущий маршрут</p>
+      <div className='list__container'>
+        <p className='list__header'>Текущий маршрут</p>
         { listItemsTemplate.length ? 
-          <ul onDragOver={this.dragOver.bind(this)}>
+          <ul 
+            className='list__list'
+            onDragOver={this.dragOver.bind(this)}>
             {listItemsTemplate} 
           </ul> :
-          <p>У вас пока нет точек на маршруте</p>
+          <p className='list__placeholder'>У вас пока нет точек на маршруте</p>
         }
       </div>  
     );
