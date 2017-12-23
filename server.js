@@ -8,7 +8,8 @@ app.get('/', function(req, res){
 res.sendFile(__dirname + '/index.html');
 });
 
+var port = process.env.PORT || 3000;
 
-http.listen(3000, function(){
+http.listen(port, function(){
   console.log('listening on *:3000');
 });
