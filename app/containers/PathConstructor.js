@@ -17,22 +17,6 @@ class PathConstructor extends React.Component {
     super(props);
   }
 
-  loadMap () {
-    if( !(window.ymaps && window.ymaps.Map)) return;
-    if( this.props.pathMap.getCenter ) return;
-
-    var pathMap = new window.ymaps.Map('pathMapId', {
-        center: [55.75, 37.61],
-        zoom: 16
-      });  
-
-    pathMap.container.fitToViewport();
-
-    this.props.mapAppears({
-      map: pathMap
-    });
-  }
-
   addPoint (e) {
     if(e.keyCode !== 13 || !this.props.isMap) return;
     let coords = this.props.pathMap.getCenter();
@@ -124,15 +108,6 @@ class PathConstructor extends React.Component {
   }
 
   render() {
-    let intervalId;
-
-    if( !this.props.isMap) {
-      let bindedloadMap = this.loadMap.bind(this);
-      
-      intervalId = setInterval( bindedloadMap, 1000);
-    } else {
-      if (intervalId) clearInterval(intervalId);
-    }
 
     return(
       <div className='application'> 
@@ -152,12 +127,13 @@ class PathConstructor extends React.Component {
 }
 
 function mapStateToProps (state) {
+  
   return {
-    pathMap: state.pathMap,
-    placemarks: state.placemarks,
-    lines: state.lines,
-    isMap: state.isMap,
-    pathPoints: state.points
+    pathMap: state.mapReducer.pathMap,
+    placemarks: state.mapReducer.placemarks,
+    lines: state.mapReducer.lines,
+    isMap: state.mapReducer.isMap,
+    pathPoints: state.mapReducer.points
   };
 } 
 

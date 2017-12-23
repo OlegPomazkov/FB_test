@@ -1,53 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Check application Snapshot to be the same ==========>  Capturing Snapshot of PathConstructor 1`] = `
+exports[`Check application Snapshot to be the same ==========>  Capturing Snapshot of PathConstructor  --------------->  1`] = `
 <div
   className="application"
 >
   <div
-    className="side-panel"
+    className="side__panel"
   >
     <div
-      className="input"
+      className="input__container"
     >
       <p
-        className="input-header"
+        className="input__header"
       >
         Новая точка маршрута
       </p>
       <input
+        className="input__input"
         onKeyDown={[Function]}
         placeholder="Введите наименование"
         type="text"
       />
     </div>
     <div
-      className="list"
+      className="list__container"
     >
       <p
-        className="list-header"
+        className="list__header"
       >
         Текущий маршрут
       </p>
-      <p>
+      <p
+        className="list__placeholder"
+      >
         У вас пока нет точек на маршруте
       </p>
     </div>
   </div>
   <div
-    className="map"
-    onClick={[Function]}
+    className="map__container"
+    onClick={undefined}
   >
     <p
-      className="warning"
+      className="map__placeholder"
     >
-       'Click here to load map'
+      Карта загружается ... 
     </p>
     <div
+      className="map__map"
       id="pathMapId"
       style={
         Object {
-          "height": 400,
+          "height": 377,
           "width": 400,
         }
       }

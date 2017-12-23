@@ -11,11 +11,13 @@ var PathConstructor = require('../app/containers/PathConstructor.js');
 
 describe('Check application Snapshot to be the same ==========> ',()=>{
   const initialState = {
-    points: [],
-    pathMap: {},
-    placemarks: [],
-    lines: [],
-    isMap: false
+    mapReducer: {
+      points: [],
+      pathMap: {},
+      placemarks: [],
+      lines: [],
+      isMap: false
+    }
   };
   const mockStore = configureStore();
   let store = mockStore(initialState); 
